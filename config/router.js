@@ -20,12 +20,13 @@ export const Pages = {
 export const routes = {};
 
 export const navigateTo = (path) => {
-    window.history.pushState({}, path, window.location.origin + path);
+    path = routePath + path;
+    window.location.hash = path; // Update to use location.hash
     handleRoute();
 };
 
 export const handleRoute = (...args) => {
-    const path = window.location.pathname;
+    const path = window.location.hash.slice(1); // Extract path from location.hash
 
     let matchedRoute = null;
     let params = {};
@@ -43,9 +44,11 @@ export const handleRoute = (...args) => {
     });
 
     if (matchedRoute) {
-        routes[matchedRoute](params, ...args); // Mengirimkan parameter ke fungsi routes[matchedRoute]
+        routes[matchedRoute](params, ...args);
     } else {
-        console.log('Route not found');
-        // Add code to handle 404 or default route
+        Pages.call(''); // Handle 404 or default route
     }
 };
+
+// Listen for hashchange events
+window.addEventListener('hashchange', handleRoute);

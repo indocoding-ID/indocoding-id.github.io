@@ -54,6 +54,10 @@ Promise.all([
                     Pages.call(page.get());
                 })
             }
+
+            if(location.hash == ''){
+                location.hash = '/';
+            }
             
             handleRoute();
 
