@@ -1,11 +1,14 @@
 export const Home = async function () {
    return new Promise(async (resolve, reject)=>{
-       let [{ navigateTo }, { Grid }, { Card }, { Carousel }] = await call([
+       let [{ navigateTo }, { Grid }, { Card }, { Carousel }, { NavBarAction }] = await call([
             import('../router.js?v='+Version)
             ,import('../component/grid.js?v='+Version)
             ,import('../component/card.js?v='+Version)
             ,import('../component/carousel.js?v='+Version)
+            ,import('../component/navbar.js?v='+Version)
         ]);
+
+        NavBarAction.show();
 
         let dataGrid = [];
         let dataGrid2 = [];

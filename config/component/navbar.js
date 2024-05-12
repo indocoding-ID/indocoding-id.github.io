@@ -7,7 +7,7 @@ export const NavBarAction = {
     }
     ,show: function(){
         if (this.element && this.element instanceof HTMLElement){
-            this.element.style.display = 'block';
+            this.element.style.display = 'flex';
         }
     }
 }
