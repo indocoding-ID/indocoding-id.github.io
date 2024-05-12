@@ -3,41 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+    <title>Builder App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="/external/fw/css/all.css"/>
+    <link rel="stylesheet" href="/external/toast.css">
+    <link rel="stylesheet" href="/external/gp/dist/css/grapes.min.css">
+    <link rel="stylesheet" href="/external/gp-module/css/demos.css">
+    <link rel="stylesheet" href="/external/gp-module/css/grapesjs-preset-webpage.min.css">
+    <link rel="stylesheet" href="/external/gp-module/css/grapick.min.css">
+    <script src="/external/jq.js"></script>
+    <script src="/external/toast.js"></script>
+    <script src="/external/theme.js"></script>
+    <link href="/external/daisy.css" rel="stylesheet" type="text/css" />
+    <script src="/external/jszip.js"></script>
+    <script src="/external/xlsx.js"></script>
+    <script src="/external/tailwind.js"></script>
+    <script src="/external/gp/dist/grapes.min.js"></script>
+    <script src="/external/gp-module/block-basic.js"></script>
+    <script src="/external/gp-module/countdown.js"></script>
+    <script src="/external/gp-module/cuscode.js"></script>
+    <script src="/external/gp-module/export.js"></script>
+    <script src="/external/gp-module/forms.js"></script>
+    <script src="/external/gp-module/imgeditor.js"></script>
+    <script src="/external/gp-module/post.js"></script>
+    <script src="/external/gp-module/preset.js"></script>
+    <script src="/external/gp-module/style.js"></script>
+    <script src="/external/gp-module/tabs.js"></script>
+    <script src="/external/gp-module/tooltips.js"></script>
+    <script src="/external/gp-module/touch.js"></script>
+    <script src="/external/gp-module/typed.js"></script>
+    <script src="/external/gp-module/tw.js"></script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .content-auto {
+            content-visibility: auto;
+          }
         }
-        .container {
-            text-align: center;
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      </style>
+      <style>
+        *{
+          font-family: "Nunito", sans-serif;
         }
-        h1 {
-            font-size: 36px;
-            color: #333;
-            margin-bottom: 20px;
+        #app{
+          position: relative;
+          max-height: 100vh;
+          min-height: 100vh;
+          overflow: auto;
         }
-        p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 0;
-        }
-    </style>
+      </style>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-css.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-html.js"></script>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-css.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-html.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Coming Soon</h1>
-        <p>Our website is currently under construction. Please check back later!</p>
+    <div id="app">
+      
     </div>
+    <script>
+      const module = {
+        exports : {}
+      };
+      const Version = 're-dep-02';
+    </script>
+    <script src="/external/module/meta.js"></script>
+    <script type="module" src="/index.js"></script>
 </body>
 </html>
