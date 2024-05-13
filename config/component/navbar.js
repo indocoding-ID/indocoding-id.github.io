@@ -15,7 +15,7 @@ export const NavBarAction = {
 export const NavBar = function(config){
     return el('div').class('navbar shadow-md bg-base-100').html(`
         <div class="flex-1">
-            <a id="home" class="btn btn-ghost text-xl">Indo Web Store</a>
+            <a id="home" class="btn btn-ghost text-xl">${config && config.title? config.title: '' }</a>
         </div>
         <div class="flex-none gap-2">
             <div class="form-control relative">

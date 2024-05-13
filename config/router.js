@@ -12,7 +12,22 @@ export const Pages = {
             this.Container.innerHTML = '';
             this.Container.appendChild(node);
         }else{
-            console.log('data not html object');
+            this.Container.innerHTML = '';
+            this.Container.appendChild(el('div')
+                .child(
+                    el('div').class('flex justify-center items-center h-[60vh]')
+                        .child(
+                            el('div')
+                                .class('text-center')
+                                .child(
+                                    el('div').class('text-xl').html('Sorry!')
+                                )
+                                .child(
+                                    el('div').html('Page your request not found')
+                                )
+                        )
+                )
+                .get());
         }
     }
 }

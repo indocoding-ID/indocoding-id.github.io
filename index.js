@@ -1,5 +1,6 @@
 Promise.all([
-    import('./config/router.js?v=' + Version)
+    import('./config.js?v=' + Version)
+    , import('./config/router.js?v=' + Version)
     , import('./config/component/loaderLayer.js?v=' + Version)
     , import('./config/index.js?v=' + Version)
     , import('./config/component/navbar.js?v=' + Version)
@@ -9,7 +10,8 @@ Promise.all([
     , import('./config/pages/produk.js?v=' + Version)
     , import('./config/pages/admin.js?v=' + Version)
 ]).then(async function ([
-    {Pages, routes, navigateTo, handleRoute }
+    { configs }
+    , {Pages, routes, navigateTo, handleRoute }
     , {loadLayer}
     , conf
     , {NavBar}
@@ -26,6 +28,7 @@ Promise.all([
     let Container = el('div');
 
     Container.child(NavBar({
+        title: configs.name,
         module : {
             go : navigateTo
         }
@@ -37,7 +40,7 @@ Promise.all([
             
             Pages.Container = e.el;
 
-            routes['/admin'] = function(params){
+            routes['/admin/builder'] = function(params){
                 Admin().then(function(page){
                     Pages.call(page.get());
                 })

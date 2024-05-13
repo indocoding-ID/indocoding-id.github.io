@@ -21,9 +21,6 @@ export const Card = function(config){
             <div class="badge badge-secondary">NEW</div>
             </h2>
             <p>${config && config.deskripsi? config.deskripsi : `Deskripsi ...`}</p>
-            <div class="card-actions justify-end">
-                <div class="text-xl py-[5px]">Rp ${config && config.harga ? config.harga : '24.000.000'}</div> 
-            </div>
         </div>
         </div>
     `)

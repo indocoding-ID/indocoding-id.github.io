@@ -30,53 +30,10 @@ export const Home = async function () {
             }).get())
         }
 
-
         let page = el('div').class('p-10')
-        .child(
-            el('div')
-            .class('mb-20 text-center')
-            .child(
-                el('div')
-                .class('inline-block w-[540px]')
-                .child(
-                    el('h1').class('text-2xl mb-3 text-center')
-                    .text('Selamat datang di toko kami')
-                )
-                .child(
-                    el('p').class('text-md text-center')
-                    .text('Buat website anda dengan lebih mudah bersama kami, cukup pilih template dan publish ke website/hosting anda.')
-                )
-                .child(
-                    el('p').class('text-md mb-3 text-center')
-                    .text('Atau buat website anda sendiri cukup drag and drop')
-                )
-                .child(
-                    el('button')
-                    .class('text-md px-[10px] shadow-md py-[5px] rounded-md bg-blue-600 text-white hover:bg-blue-800 text-center')
-                    .text('klik untuk memulai')
-                )
-            )
-        )
-        .child(
-            el('div').class('mb-3')
-            .child(
-                el('h1').class('text-xl font-bold').text('Produk Kami')
-            )
-        )
         .child(
             Grid({
                 data: dataGrid
-            })
-        )
-        .child(
-            el('div').class('mb-3')
-            .child(
-                el('h1').class('text-xl font-bold').text('Produk Populer')
-            )
-        )
-        .child(
-            Grid({
-                data: dataGrid2
             })
         )
         ;
