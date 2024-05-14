@@ -51,8 +51,10 @@ export const htmlParser = function(html){
 export const SimpanAction = {
     editor : null,
     content : null,
+    fileopen: null,
     push : async function(){
-        let { modalAction } = await import('./admin/component/modal.js?v=' + Version)
+        let { modalAction } = await import('./admin/component/modal.js?v=' + Version);
+        console.log(modalAction);
         let id = 'id-' + Date.now();
         let tw = await fetch('/external/tailwind.js');
         let twtext = await tw.text()
@@ -116,7 +118,7 @@ export const Admin = async function () {
             , import('./admin/pluginsopt.js?v=' + Version)
         ]);
         let { modalSimpan } = await import('./admin/component/modal.js?v=' + Version)
-
+        let modal = await modalSimpan()
         let dataGrid = [];
 
         for (let z = 0; z < 1; z++) {
@@ -167,7 +169,39 @@ export const Admin = async function () {
                         SimpanAction.push();
                     })
                 )
-                .child(modalSimpan())
+                .child(
+                    el('div')
+                    .child(
+                        el('label').class('p-2 bg-green-600 text-white rounded-md cursor-pointer').text('Load Template')
+                        .click(function(){
+                            SimpanAction.fileopen.click();
+                        })
+                    )
+                    .child(
+                        el('input').type('file').class('hidden').load(function(e){
+                            SimpanAction.fileopen =  e.el;
+                            e.el.addEventListener('change', function(evt){
+                                let [file] = evt.target.files;
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    const arrayBuffer = e.target.result;
+                                    JSZip.loadAsync(arrayBuffer).then(function (zip) {
+                                        zip.forEach(function (relativePath, zipEntry) {
+                                            if(zipEntry.name == 'editor.json'){
+                                                zipEntry.async('string').then(function (content) {
+                                                    localStorage.setItem('gjsProject', content);
+                                                    SimpanAction.editor.loadData(JSON.parse( content ) )
+                                                });
+                                            }
+                                        });
+                                    });
+                                };
+                                reader.readAsArrayBuffer(file);
+                            },false)
+                        })
+                    )
+                )
+                .child(modal)
             )
             .child(
                 el('div')
