@@ -65,21 +65,25 @@ const xdb = function (dbname, listdbname = [], v = 0, func) {
     localStorage.setItem('dbv', v);
 }
 
-export const dbread = function (params, func) {
-    xdb('epost-data', ['databaseEpos'], 8, function (s) {
-        log(s)
-        s.read('databaseEpos', params, function (s) {
-            if (s != undefined) {
-                func(s.data);
-            } else {
-                func(null);
-            }
+export const dbread = function (params) {
+    return new Promise((resolve,reject)=>{
+        xdb('epost-data', ['databaseEpos'], 8, function (s) {
+            s.read('databaseEpos', params, function (s) {
+                if (s != undefined) {
+                    resolve(s.data);
+                } else {
+                    reject(null);
+                }
+            })
         })
     })
 }
 
 export const dbwrite = function (params, data) {
-    xdb('epost-data', ['databaseEpos'], 8, function (s) {
-        s.add('databaseEpos', { id: params, data: data })
+    return new Promise((resolve,reject)=>{
+        xdb('epost-data', ['databaseEpos'], 8, function (s) {
+            s.add('databaseEpos', { id: params, data: data })
+            resolve('simpan')
+        });
     });
 }
