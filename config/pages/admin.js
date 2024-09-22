@@ -227,7 +227,7 @@ export const Admin = async function () {
                                                 zipEntry.async('string').then(function (content) {
                                                     (async function(){
                                                         let { dbwrite } = await import('../../config/lib/indexDb.js?v=' + Version);
-                                                        await dbwrite('gjsProject', content);
+                                                        await dbwrite('gjsProject', JSON.stringify(content));
                                                         SimpanAction.editor.loadData(JSON.parse( content ) )
                                                     })();
                                                 });
@@ -282,6 +282,23 @@ export const Admin = async function () {
                         styleManager: styleManager,
                         plugins: Plugins,
                         pluginsOpts: pluginsOpts,
+                        storageManager: {
+                            type: 'local',
+                            autosave: true,
+                            autoload: true,
+                            async load(key) {
+                                let { dbread } = await import('../../config/lib/indexDb.js?v=' + Version);
+                                const data = await dbread('gjsProject');
+                                if (data) {
+                                    return JSON.parse(data);
+                                }
+                                throw false;
+                            },
+                            async store(data) {
+                                let { dbwrite } = await import('../../config/lib/indexDb.js?v=' + Version);
+                                await dbwrite('gjsProject', JSON.stringify(data));
+                            }
+                        },
                     });
 
                     SimpanAction.editor = editor;
