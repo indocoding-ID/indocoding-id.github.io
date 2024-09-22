@@ -225,8 +225,11 @@ export const Admin = async function () {
                                         zip.forEach(function (relativePath, zipEntry) {
                                             if(zipEntry.name == 'editor.json'){
                                                 zipEntry.async('string').then(function (content) {
-                                                    localStorage.setItem('gjsProject', content);
-                                                    SimpanAction.editor.loadData(JSON.parse( content ) )
+                                                    (async function(){
+                                                        let { dbwrite } = await import('../../config/lib/indexDb.js?v=' + Version);
+                                                        await dbwrite('gjsProject', content);
+                                                        SimpanAction.editor.loadData(JSON.parse( content ) )
+                                                    })();
                                                 });
                                             }
                                         });
