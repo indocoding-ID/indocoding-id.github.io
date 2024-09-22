@@ -1,3 +1,35 @@
+export function extractCss(cssText) {
+    const regex = /background-image:\s*url\(["']?data:image\/([a-zA-Z]+);base64,([A-Za-z0-9+/=]+)["']?\);?/g;
+    let matches;
+    const imagesArray = [];
+    let updatedCssText = cssText;
+
+    // Loop through all matches of base64 images in the CSS text
+    while ((matches = regex.exec(cssText)) !== null) {
+        const imageExtension = matches[1]; // Capture image extension (e.g., png, jpeg)
+        const base64String = matches[2];  // Capture base64 data
+
+        // Generate a random ID for the image
+        const imageId = `bg-${Math.random().toString(36).substring(2, 15)}`;
+
+        // Replace the base64 string with the asset path in the CSS
+        const assetPath = `/asset/bg/${imageId}.${imageExtension}`;
+        updatedCssText = updatedCssText.replace(matches[0], `background-image: url('${assetPath}');`);
+
+        // Store the image ID, base64 string, and image extension in the array
+        imagesArray.push({
+            image: imageId,
+            extension: imageExtension,
+            base64: base64String
+        });
+    }
+
+    return {
+        html: updatedCssText,
+        data: imagesArray
+    };
+}
+
 export const htmlTemplate = async function(body, id){
     let h = `<html>`
     h += `\n<head>`
@@ -65,10 +97,10 @@ export const SimpanAction = {
 
         let html = await htmlTemplate(imageObject.html, id);
         let js = editor.getJs();
-        let css = editor.getCss();
+        let css = extractCss(editor.getCss());
         let data = {
             html: html,
-            css: css,
+            css: css.html,
             js: js
         }
         let zip = new JSZip();
@@ -79,10 +111,14 @@ export const SimpanAction = {
         let jsfolder = zip.folder('js')
         let assets = zip.folder('assets')
         let images = assets.folder('image')
+        let bgfolder = zip.folder('asset/bg/')
         for(let img of imageObject.dataImage){
             images.file(img.name, img.data, {base64:true})
         }
-        cssfolder.file('style-'+id+'.css', css != ''? css: ' ')
+        for (let img of css.data) {
+            bgfolder.file(img.image + '.' + img.extension, img.base64, { base64: true })
+        }
+        cssfolder.file('style-' + id + '.css', css.html != '' ? html_beautify(css.html) : ' '); 
         jsfolder.file('script-' + id +'.js', js != ''? js: ' ')
         jsfolder.file('tw.js', twtext);
         zip.generateAsync({ type: "blob" })
